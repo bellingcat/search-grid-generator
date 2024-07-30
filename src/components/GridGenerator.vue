@@ -2,16 +2,16 @@
     <v-app>
       <v-container>
         <v-responsive class="align-center text-center overflow-visible">
-        <v-img height="100" src="@/assets/logo.svg" />
-        <h1 class="py-2 font-weight-bold">Bellingcat Search Grid Generator</h1>
-        <!-- Title and Information -->
-        <v-row justify="center" class="text-left py-2">
-          <v-col cols="12" md="8" lg="6" xl="4">
-            <p class="py-2">
-              A tool for generating a grid of rectangular polygons in a KML file. The resulting KML file can be opened in Google Earth and used for systematically searching an area.
-            </p>
-            </v-col>
-        </v-row>
+          <v-img height="100" src="@/assets/logo.svg" />
+          <h1 class="py-2 font-weight-bold">Bellingcat Search Grid Generator</h1>
+          <!-- Title and Information -->
+          <v-row justify="center" class="text-left py-2">
+            <v-col cols="12" md="8" lg="6" xl="4">
+              <p class="py-2">
+                A tool for generating a grid of rectangular polygons in a KML file. The resulting KML file can be opened in Google Earth and used for systematically searching an area.
+              </p>
+              </v-col>
+          </v-row>
           <v-card class="mx-auto" max-width="600">
             <v-card-text>
               <v-form>
