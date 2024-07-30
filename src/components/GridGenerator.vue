@@ -53,6 +53,7 @@
   
   
   <script>
+  import { create } from 'xmlbuilder2';
   export default {
     data() {
       return {
@@ -74,35 +75,49 @@
         const latStep = gridSizeKm * degPerKm;
         const lonStep = gridSizeKm * degPerKm / Math.cos(midLat * Math.PI / 180);
   
-        // Initialize KML
-        let kml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
-        kml += `<kml xmlns="http://www.opengis.net/kml/2.2">\n`;
-        kml += `<Document>\n`;
-        kml += `<name>Grid</name>\n`;
+        // Initialize KML document
+        const kmlDoc = create({ version: '1.0', encoding: 'UTF-8' })
+          .ele('kml', { xmlns: 'http://www.opengis.net/kml/2.2' })
+            .ele('Document')
+              .ele('name').txt('Grid').up()
+              .ele('Style', { id: '1' })
+                .ele('LineStyle', { id: '2' })
+                  .ele('color').txt('ffffffff').up()
+                  .ele('colorMode').txt('normal').up()
+                  .ele('width').txt('2').up()
+                .up()
+              .ele('PolyStyle', { id: '3' })
+                .ele('color').txt('000000ff').up()
+                .ele('colorMode').txt('normal').up()
+                .ele('fill').txt('1').up()
+                .ele('outline').txt('1').up()
+            .up()
+          .up();
+
   
         for (let lat = Math.min(lat1, lat2); lat < Math.max(lat1, lat2); lat += latStep) {
           for (let lon = Math.min(lon1, lon2); lon < Math.max(lon1, lon2); lon += lonStep) {
-            kml += `<Placemark>\n`;
-            kml += `<name>(${lat.toFixed(5)}, ${lon.toFixed(5)})</name>\n`;
-            kml += `<Polygon>\n`;
-            kml += `<outerBoundaryIs>\n`;
-            kml += `<LinearRing>\n`;
-            kml += `<coordinates>\n`;
-            kml += `${lon},${lat},0\n`;
-            kml += `${lon + lonStep},${lat},0\n`;
-            kml += `${lon + lonStep},${lat + latStep},0\n`;
-            kml += `${lon},${lat + latStep},0\n`;
-            kml += `${lon},${lat},0\n`;
-            kml += `</coordinates>\n`;
-            kml += `</LinearRing>\n`;
-            kml += `</outerBoundaryIs>\n`;
-            kml += `</Polygon>\n`;
-            kml += `</Placemark>\n`;
+            kmlDoc.ele('Placemark')
+              .ele('name').txt(`(${lat.toFixed(5)}, ${lon.toFixed(5)})`).up()
+              .ele('styleUrl').txt('#1').up()
+              .ele('Polygon')
+                .ele('outerBoundaryIs')
+                  .ele('LinearRing')
+                    .ele('coordinates')
+                      .txt(`${lon},${lat},0 `)
+                      .txt(`${lon + lonStep},${lat},0 `)
+                      .txt(`${lon + lonStep},${lat + latStep},0 `)
+                      .txt(`${lon},${lat + latStep},0 `)
+                      .txt(`${lon},${lat},0`)
+                    .up()
+                  .up()
+                .up()
+              .up()
+            .up();
           }
         }
-  
-        kml += `</Document>\n`;
-        kml += `</kml>`;
+
+        const kml = kmlDoc.end({ prettyPrint: true });
   
         // Create a Blob with the KML data
         const blob = new Blob([kml], { type: 'application/vnd.google-earth.kml+xml' });
