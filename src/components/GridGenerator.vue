@@ -3,7 +3,7 @@
       <v-container>
         <v-responsive class="align-center text-center overflow-visible">
       <v-img height="100" src="@/assets/logo.svg" />
-      <h1 class="py-2 font-weight-bold">Search Grid Generator</h1>
+      <h1 class="py-2 font-weight-bold">Bellingcat Search Grid Generator</h1>
       <!-- Title and Information -->
       <v-row justify="center" class="text-left py-2">
         <v-col cols="12" md="8" lg="6" xl="4">
@@ -94,7 +94,7 @@
             .up()
           .up();
 
-  
+
         for (let lat = Math.min(lat1, lat2); lat < Math.max(lat1, lat2); lat += latStep) {
           for (let lon = Math.min(lon1, lon2); lon < Math.max(lon1, lon2); lon += lonStep) {
             kmlDoc.ele('Placemark')
@@ -137,27 +137,4 @@
     }
   };
   </script>
-  
-  <!-- <style scoped>
-  #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
-  }
-  label {
-    display: block;
-    margin: 10px 0 5px;
-  }
-  input {
-    margin-bottom: 20px;
-    padding: 5px;
-    font-size: 1em;
-  }
-  button {
-    padding: 10px 20px;
-    font-size: 1em;
-    cursor: pointer;
-  }
-  </style> -->
   
