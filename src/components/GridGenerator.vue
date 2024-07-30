@@ -2,50 +2,50 @@
     <v-app>
       <v-container>
         <v-responsive class="align-center text-center overflow-visible">
-      <v-img height="100" src="@/assets/logo.svg" />
-      <h1 class="py-2 font-weight-bold">Bellingcat Search Grid Generator</h1>
-      <!-- Title and Information -->
-      <v-row justify="center" class="text-left py-2">
-        <v-col cols="12" md="8" lg="6" xl="4">
-          <p class="py-2">
-            A tool for generating a grid of rectangular polygons in a KML file. The resulting KML file can be opened in Google Earth and used for systematically searching an area.
-          </p>
-          </v-col>
-      </v-row>
-        <v-card class="mx-auto" max-width="600">
-          <v-card-text>
-            <v-form>
-              <v-text-field
-                v-model="latLong1"
-                label="Coordinate 1 (lat, lon)"
-                placeholder="48.90529373066811, 2.2584719879516464"
-                outlined
-              ></v-text-field>
-              <v-text-field
-                v-model="latLong2"
-                label="Coordinate 2 (lat, lon)"
-                placeholder="48.81418021233939, 2.4172392962309246"
-                outlined
-              ></v-text-field>
-              <v-text-field
-                v-model.number="gridSize"
-                label="Grid Size (km)"
-                placeholder="1"
-                outlined
-                type="number"
-              ></v-text-field>
-              <v-text-field
-                v-model="fileName"
-                label="File Name"
-                placeholder="grid.kml"
-                outlined
-              ></v-text-field>
-            </v-form>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn color="primary" @click="generateKML">Generate KML</v-btn>
-          </v-card-actions>
-        </v-card>
+        <v-img height="100" src="@/assets/logo.svg" />
+        <h1 class="py-2 font-weight-bold">Bellingcat Search Grid Generator</h1>
+        <!-- Title and Information -->
+        <v-row justify="center" class="text-left py-2">
+          <v-col cols="12" md="8" lg="6" xl="4">
+            <p class="py-2">
+              A tool for generating a grid of rectangular polygons in a KML file. The resulting KML file can be opened in Google Earth and used for systematically searching an area.
+            </p>
+            </v-col>
+        </v-row>
+          <v-card class="mx-auto" max-width="600">
+            <v-card-text>
+              <v-form>
+                <v-text-field
+                  v-model="latLong1"
+                  label="Coordinate 1 (lat, lon)"
+                  placeholder="48.90529373066811, 2.2584719879516464"
+                  outlined
+                ></v-text-field>
+                <v-text-field
+                  v-model="latLong2"
+                  label="Coordinate 2 (lat, lon)"
+                  placeholder="48.81418021233939, 2.4172392962309246"
+                  outlined
+                ></v-text-field>
+                <v-text-field
+                  v-model.number="gridSize"
+                  label="Grid Size (km)"
+                  placeholder="1"
+                  outlined
+                  type="number"
+                ></v-text-field>
+                <v-text-field
+                  v-model="fileName"
+                  label="File Name"
+                  placeholder="grid.kml"
+                  outlined
+                ></v-text-field>
+              </v-form>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn variant="elevated" color="primary" @click="generateKML">Generate KML</v-btn>
+            </v-card-actions>
+          </v-card>
         </v-responsive>
       </v-container>
     </v-app>
