@@ -14,18 +14,20 @@
           </v-row>
           <v-card class="mx-auto" max-width="600">
             <v-card-text>
-              <v-form>
+              <v-form v-model="isFormValid">
                 <v-text-field
                   v-model="latLong1"
                   label="Coordinate 1 (lat, lon)"
                   placeholder="48.90529373066811, 2.2584719879516464"
                   outlined
+                  :rules="[(v) => !!v ]"
                 ></v-text-field>
                 <v-text-field
                   v-model="latLong2"
                   label="Coordinate 2 (lat, lon)"
                   placeholder="48.81418021233939, 2.4172392962309246"
                   outlined
+                  :rules="[(v) => !!v ]"
                 ></v-text-field>
                 <v-text-field
                   v-model.number="gridSize"
@@ -33,6 +35,8 @@
                   placeholder="1"
                   outlined
                   type="number"
+                  step="0.1"
+                  :rules="[(v) => v > 0 || 'Grid size must be greater than 0']"
                 ></v-text-field>
                 <v-text-field
                   v-model="fileName"
@@ -43,7 +47,7 @@
               </v-form>
             </v-card-text>
             <v-card-actions>
-              <v-btn variant="elevated" color="primary" @click="generateKML">Generate KML</v-btn>
+              <v-btn :disabled="!isFormValid" variant="elevated" color="primary" @click="generateKML">Generate KML</v-btn>
             </v-card-actions>
           </v-card>
         </v-responsive>
@@ -57,6 +61,7 @@
   export default {
     data() {
       return {
+        isFormValid: false,
         latLong1: "48.90529373066811, 2.2584719879516464",
         latLong2: "48.81418021233939, 2.4172392962309246",
         gridSize: 1,
@@ -65,6 +70,11 @@
     },
     methods: {
       generateKML() {
+        if (!this.latLong1 || !this.latLong2 || this.gridSize<=0){return}
+
+        this.fileName = this.filename ?? 'grid.kml';
+        this.fileName = this.fileName.endsWith('.kml') ? this.fileName : `${this.fileName}.kml`;
+
         const [lat1, lon1] = this.latLong1.split(',').map(Number);
         const [lat2, lon2] = this.latLong2.split(',').map(Number);
         const gridSizeKm = this.gridSize;
@@ -126,7 +136,7 @@
         // Create a temporary link to trigger the download
         const a = document.createElement('a');
         a.href = url;
-        a.download = this.fileName.endsWith('.kml') ? this.fileName : `${this.fileName}.kml`;
+        a.download = this.fileName;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
