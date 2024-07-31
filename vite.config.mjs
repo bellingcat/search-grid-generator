@@ -11,7 +11,7 @@ import { fileURLToPath, URL } from 'node:url'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/search-grid-generator/',
+  base: './',
   plugins: [
     VueRouter(),
     Vue({
