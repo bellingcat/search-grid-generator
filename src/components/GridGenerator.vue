@@ -207,13 +207,15 @@
             width:250, 
             height:210,
         });
+        const vm = this; // Store reference to Vue instance
         this.areaSelect.on("change", function() {
             console.log(map)
             var bounds = this.getBounds();           
             // update the coordinates in the form
-        areaSelect.on("change", function() {
-            var bounds = this.getBounds();
-            console.log(bounds);
+            vm.lat1 = bounds.getNorthEast().lat.toFixed(5)
+            vm.lon1 = bounds.getNorthEast().lng.toFixed(5)
+            vm.lat2 = bounds.getSouthWest().lat.toFixed(5)
+            vm.lon2 = bounds.getSouthWest().lng.toFixed(5)
         });
         this.areaSelect.addTo(map);
       }
