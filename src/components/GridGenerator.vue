@@ -22,7 +22,9 @@
         <!-- Title and Information -->
         <v-card class="mx-auto" max-width="600" variant="text">
           <p class="py-2">
-            Use the map to select an area of interest. Optionally adjust the grid size and file name. Click the 'Download Search Grid' button to download your KML file. This KML file can be opened in Google Earth
+            Use the map to select an area of interest. Optionally adjust the
+            grid size and file name. Click the 'Download Search Grid' button to
+            download your KML file. This KML file can be opened in Google Earth
             or other GIS tool.
           </p>
         </v-card>
@@ -42,7 +44,7 @@
           <l-map
             ref="map"
             :use-global-leaflet="false"
-            style="z-index: 0; height: 300px; width: 100%;"
+            style="z-index: 0; height: 300px; width: 100%"
             @ready="readyMap()"
           />
         </v-card>
@@ -123,7 +125,7 @@ export default {
       gridSize: 1,
       fileName: "grid.kml",
       areaSelect: null,
-      mapCenter: null
+      mapCenter: null,
     };
   },
   computed: {
@@ -166,10 +168,8 @@ export default {
         return;
       }
       var fileName = this.fileName;
-      fileName = (!fileName) ? "grid.kml" : fileName;
-      this.fileName = fileName.endsWith(".kml")
-        ? fileName
-        : `${fileName}.kml`;
+      fileName = !fileName ? "grid.kml" : fileName;
+      this.fileName = fileName.endsWith(".kml") ? fileName : `${fileName}.kml`;
 
       const [lat1, lon1, lat2, lon2] = [
         this.lat1,
@@ -283,7 +283,7 @@ export default {
         attribution:
           '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
       }).addTo(map);
-      L.control.scale({imperial:false}).addTo(map);
+      L.control.scale({ imperial: false }).addTo(map);
 
       this.areaSelect = L.areaSelect({
         width: 250,
@@ -301,13 +301,13 @@ export default {
       });
       this.areaSelect.addTo(map);
     },
-    jumpToCoordinate(){
+    jumpToCoordinate() {
       if (!this.mapCenter) {
         return;
       }
       const [lat, lon] = this.mapCenter.split(",").map(Number);
       this.$refs.map.leafletObject.setView([lat, lon], 11);
-    }
+    },
   },
 };
 </script>
