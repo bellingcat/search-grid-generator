@@ -161,11 +161,11 @@ export default {
       ) {
         return;
       }
-
-      this.fileName = this.filename ?? "grid.kml";
-      this.fileName = this.fileName.endsWith(".kml")
-        ? this.fileName
-        : `${this.fileName}.kml`;
+      var fileName = this.fileName;
+      fileName = (!fileName) ? "grid.kml" : fileName;
+      this.fileName = fileName.endsWith(".kml")
+        ? fileName
+        : `${fileName}.kml`;
 
       const [lat1, lon1, lat2, lon2] = [
         this.lat1,
