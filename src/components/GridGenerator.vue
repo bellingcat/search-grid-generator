@@ -8,13 +8,11 @@
           --><a href="https://discord.gg/bellingcat"><img alt="Discord logo: Join our community" src="https://img.shields.io/badge/Join%20our%20community-%20?style=for-the-badge&logo=discord&logoColor=%23fff&color=%235865F2"></a><!--
           --><a href="https://github.com/bellingcat/search-grid-generator"><img alt="Github logo: Explore the code" src="https://img.shields.io/badge/Explore%20the%20code-%20?style=for-the-badge&logo=github&color=%2329903b"></a>
           <!-- Title and Information -->
-          <v-row justify="center" class="text-left py-2">
-            <v-col cols="12" md="8" lg="6" xl="4">
+          <v-card class="mx-auto" max-width="600" variant="text">
               <p class="py-2">
                 Generate a search grid by entering coordinates for opposite corners of an area of interest. The KML file can be opened in Google Earth or other GIS tool.
               </p>
-              </v-col>
-          </v-row>
+          </v-card>
           <v-card class="mx-auto" max-width="600">
             <v-card-text>
               <v-form v-model="isFormValid">
