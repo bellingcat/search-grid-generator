@@ -13,6 +13,15 @@
                 Generate a search grid by entering coordinates for opposite corners of an area of interest. The KML file can be opened in Google Earth or other GIS tool.
               </p>
           </v-card>
+          <v-card class="mx-auto mb-2" max-width="600" max-height="300">
+            <l-map ref="map" v-model:zoom="zoom" :center="[47.41322, -1.219482]" :use-global-leaflet="false" style="z-index: 0; height: 300px; width: 100%">
+              <l-tile-layer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                layer-type="base"
+                name="OpenStreetMap"
+              ></l-tile-layer>
+            </l-map>
+          </v-card>
           <v-card class="mx-auto" max-width="600">
             <v-card-text>
               <v-form v-model="isFormValid">
@@ -59,14 +68,22 @@
   
   <script>
   import { create } from 'xmlbuilder2';
+  import "leaflet/dist/leaflet.css";
+  import { LMap, LTileLayer } from "@vue-leaflet/vue-leaflet";
+  
   export default {
+    components: {
+      LMap,
+      LTileLayer,
+    },
     data() {
       return {
         isFormValid: false,
         latLong1: "48.90529373066811, 2.2584719879516464",
         latLong2: "48.81418021233939, 2.4172392962309246",
         gridSize: 1,
-        fileName: "grid.kml"
+        fileName: "grid.kml",
+        zoom: 2
       };
     },
     methods: {
