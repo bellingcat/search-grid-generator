@@ -118,10 +118,10 @@ export default {
   data() {
     return {
       isFormValid: false,
-      lat1: 48.90529373066811,
-      lon1: 2.2584719879516464,
-      lat2: 48.81418021233939,
-      lon2: 2.4172392962309246,
+      lat1: null,
+      lon1: null,
+      lat2: null,
+      lon2: null,
       gridSize: 1,
       fileName: "grid.kml",
       areaSelect: null,
