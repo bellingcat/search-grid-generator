@@ -56,6 +56,7 @@
                 placeholder="48.90529373066811, 2.2584719879516464"
                 outlined
                 :rules="[(v) => !!v]"
+                density="compact"
               ></v-text-field>
               <v-text-field
                 v-model="coordinates2"
@@ -63,6 +64,7 @@
                 placeholder="48.81418021233939, 2.4172392962309246"
                 outlined
                 :rules="[(v) => !!v]"
+                density="compact"
               ></v-text-field>
               <v-text-field
                 v-model.number="gridSize"
@@ -72,12 +74,15 @@
                 type="number"
                 step="0.1"
                 :rules="[(v) => v > 0 || 'Grid size must be greater than 0']"
+                density="compact"
               ></v-text-field>
               <v-text-field
                 v-model="fileName"
                 label="File Name"
                 placeholder="grid.kml"
                 outlined
+                density="compact"
+                hide-details="true"
               ></v-text-field>
             </v-form>
           </v-card-text>
