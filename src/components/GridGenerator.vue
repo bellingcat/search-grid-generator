@@ -22,8 +22,7 @@
         <!-- Title and Information -->
         <v-card class="mx-auto" max-width="600" variant="text">
           <p class="py-2">
-            Generate a search grid by entering coordinates for opposite corners
-            of an area of interest. The KML file can be opened in Google Earth
+            Use the map to select an area of interest. Optionally adjust the grid size and file name. Click the 'Download Search Grid' button to download your KML file. This KML file can be opened in Google Earth
             or other GIS tool.
           </p>
         </v-card>
@@ -92,7 +91,7 @@
               variant="elevated"
               color="primary"
               @click="generateKML"
-              >Generate KML</v-btn
+              >Download Search Grid</v-btn
             >
           </v-card-actions>
         </v-card>
