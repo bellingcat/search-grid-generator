@@ -113,7 +113,6 @@
         },
       },
     },
-    },
     methods: {
       generateKML() {
         if (!this.lat1 || !this.lon1 || !this.lat2 || !this.lon2 || this.gridSize<=0){return}
