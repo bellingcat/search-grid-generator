@@ -27,11 +27,23 @@
             or other GIS tool.
           </p>
         </v-card>
-        <v-card class="mx-auto mb-2" max-width="600" max-height="300">
+        <v-card class="mx-auto mb-2" max-width="600" max-height="350">
+          <!-- Add a small input field with arrow icon for lat long-->
+          <v-text-field
+            hide-details="true"
+            label="Jump to coordinate (lat, lon)"
+            placeholder="48.86, 2.34"
+            v-model="mapCenter"
+            :append-inner-icon="'mdi-target'"
+            type="text"
+            density="compact"
+            @click:append-inner="jumpToCoordinate()"
+            @keydown.enter="jumpToCoordinate()"
+          ></v-text-field>
           <l-map
             ref="map"
             :use-global-leaflet="false"
-            style="z-index: 0; height: 300px; width: 100%"
+            style="z-index: 0; height: 300px; width: 100%;"
             @ready="readyMap()"
           />
         </v-card>
@@ -107,6 +119,7 @@ export default {
       gridSize: 1,
       fileName: "grid.kml",
       areaSelect: null,
+      mapCenter: null
     };
   },
   computed: {
@@ -284,6 +297,13 @@ export default {
       });
       this.areaSelect.addTo(map);
     },
+    jumpToCoordinate(){
+      if (!this.mapCenter) {
+        return;
+      }
+      const [lat, lon] = this.mapCenter.split(",").map(Number);
+      this.$refs.map.leafletObject.setView([lat, lon], 11);
+    }
   },
 };
 </script>
