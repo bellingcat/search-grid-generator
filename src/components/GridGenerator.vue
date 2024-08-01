@@ -14,7 +14,7 @@
               </p>
           </v-card>
           <v-card class="mx-auto mb-2" max-width="600" max-height="300">
-            <l-map ref="map" v-model:zoom="zoom" :center="[47.41322, -1.219482]" :use-global-leaflet="false" style="z-index: 0; height: 300px; width: 100%" @ready="readyMap()"/>
+            <l-map ref="map" :use-global-leaflet="false" style="z-index: 0; height: 300px; width: 100%" @ready="readyMap()"/>
           </v-card>
           <v-card class="mx-auto" max-width="600">
             <v-card-text>
@@ -82,6 +82,7 @@
         lon2: 2.4172392962309246,
         gridSize: 1,
         fileName: "grid.kml",
+        areaSelect: null,  
       };
     },
     computed: {
@@ -193,20 +194,28 @@
         URL.revokeObjectURL(url);
       },
       readyMap() {
-        var map = this.$refs.map.leafletObject.setView([38, 0], 2);
+        var map = this.$refs.map.leafletObject;
+        map.setView(
+          [48.86, 2.34],
+          11
+        );
         L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
         
-        var areaSelect = L.areaSelect({
-            width:50, 
-            height:50,
+        this.areaSelect = L.areaSelect({
+            width:250, 
+            height:210,
         });
+        this.areaSelect.on("change", function() {
+            console.log(map)
+            var bounds = this.getBounds();           
+            // update the coordinates in the form
         areaSelect.on("change", function() {
             var bounds = this.getBounds();
             console.log(bounds);
         });
-        areaSelect.addTo(map);
+        this.areaSelect.addTo(map);
       }
     }
   };
