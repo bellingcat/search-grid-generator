@@ -20,14 +20,14 @@
             <v-card-text>
               <v-form v-model="isFormValid">
                 <v-text-field
-                  v-model="latLong1"
+                  v-model="coordinates1"
                   label="Coordinate 1 (lat, lon)"
                   placeholder="48.90529373066811, 2.2584719879516464"
                   outlined
                   :rules="[(v) => !!v ]"
                 ></v-text-field>
                 <v-text-field
-                  v-model="latLong2"
+                  v-model="coordinates2"
                   label="Coordinate 2 (lat, lon)"
                   placeholder="48.81418021233939, 2.4172392962309246"
                   outlined
@@ -76,22 +76,55 @@
     data() {
       return {
         isFormValid: false,
-        latLong1: "48.90529373066811, 2.2584719879516464",
-        latLong2: "48.81418021233939, 2.4172392962309246",
+        lat1: 48.90529373066811,
+        lon1: 2.2584719879516464,
+        lat2: 48.81418021233939,
+        lon2: 2.4172392962309246,
         gridSize: 1,
         fileName: "grid.kml",
-        zoom: 2
       };
+    },
+    computed: {
+      coordinates1: {
+        get() {
+          if (!this.lat1 || !this.lon1) {
+            return ;
+          }
+          return `${this.lat1}, ${this.lon1}`;
+        },
+        set(value) {
+          const [lat, lon] = value.split(',').map(Number);
+          this.lat1 = lat;
+          this.lon1 = lon;
+        },
+      },
+      coordinates2: {
+        get() {
+          if (!this.lat2 || !this.lon2) {
+            return ;
+          }
+          return `${this.lat2}, ${this.lon2}`;
+        },
+        set(value) {
+          const [lat, lon] = value.split(',').map(Number);
+          this.lat2 = lat;
+          this.lon2 = lon;
+        },
+      },
+    },
     },
     methods: {
       generateKML() {
-        if (!this.latLong1 || !this.latLong2 || this.gridSize<=0){return}
+        if (!this.lat1 || this.lon1 || !this.lat2 || this.lon2 || this.gridSize<=0){return}
 
         this.fileName = this.filename ?? 'grid.kml';
         this.fileName = this.fileName.endsWith('.kml') ? this.fileName : `${this.fileName}.kml`;
 
-        const [lat1, lon1] = this.latLong1.split(',').map(Number);
-        const [lat2, lon2] = this.latLong2.split(',').map(Number);
+        const lat1 = this.lat1;
+        const lon1 = this.lon1;
+        const lat2 = this.lat2;
+        const lon2 = this.lon2;
+
         const gridSizeKm = this.gridSize;
   
         // Convert grid size to degrees
