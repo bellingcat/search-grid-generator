@@ -116,15 +116,12 @@
     },
     methods: {
       generateKML() {
-        if (!this.lat1 || this.lon1 || !this.lat2 || this.lon2 || this.gridSize<=0){return}
+        if (!this.lat1 || !this.lon1 || !this.lat2 || !this.lon2 || this.gridSize<=0){return}
 
         this.fileName = this.filename ?? 'grid.kml';
         this.fileName = this.fileName.endsWith('.kml') ? this.fileName : `${this.fileName}.kml`;
 
-        const lat1 = this.lat1;
-        const lon1 = this.lon1;
-        const lat2 = this.lat2;
-        const lon2 = this.lon2;
+        const [lat1, lon1, lat2, lon2] = [this.lat1, this.lon1, this.lat2, this.lon2].map(Number);
 
         const gridSizeKm = this.gridSize;
   
