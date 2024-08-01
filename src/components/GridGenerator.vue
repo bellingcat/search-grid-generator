@@ -14,13 +14,7 @@
               </p>
           </v-card>
           <v-card class="mx-auto mb-2" max-width="600" max-height="300">
-            <l-map ref="map" v-model:zoom="zoom" :center="[47.41322, -1.219482]" :use-global-leaflet="false" style="z-index: 0; height: 300px; width: 100%">
-              <l-tile-layer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                layer-type="base"
-                name="OpenStreetMap"
-              ></l-tile-layer>
-            </l-map>
+            <l-map ref="map" v-model:zoom="zoom" :center="[47.41322, -1.219482]" :use-global-leaflet="false" style="z-index: 0; height: 300px; width: 100%" @ready="readyMap()"/>
           </v-card>
           <v-card class="mx-auto" max-width="600">
             <v-card-text>
@@ -69,7 +63,10 @@
   <script>
   import { create } from 'xmlbuilder2';
   import "leaflet/dist/leaflet.css";
-  import { LMap, LTileLayer } from "@vue-leaflet/vue-leaflet";
+  import L from 'leaflet';
+  import { LMap, LTileLayer} from "@vue-leaflet/vue-leaflet";
+  import "@jonatanheyman/leaflet-areaselect";
+  import "@jonatanheyman/leaflet-areaselect/src/leaflet-areaselect.css";
   
   export default {
     components: {
@@ -161,6 +158,22 @@
   
         // Revoke the object URL
         URL.revokeObjectURL(url);
+      },
+      readyMap() {
+        var map = this.$refs.map.leafletObject.setView([38, 0], 2);
+        L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        
+        var areaSelect = L.areaSelect({
+            width:50, 
+            height:50,
+        });
+        areaSelect.on("change", function() {
+            var bounds = this.getBounds();
+            console.log(bounds);
+        });
+        areaSelect.addTo(map);
       }
     }
   };
