@@ -266,6 +266,7 @@ export default {
         attribution:
           '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
       }).addTo(map);
+      L.control.scale({imperial:false}).addTo(map);
 
       this.areaSelect = L.areaSelect({
         width: 250,
