@@ -9,16 +9,17 @@
   },
   "dependencies": {
     "@jonatanheyman/leaflet-areaselect": "^1.2.0",
+    "@mapbox/togeojson": "^0.16.2",
     "@mdi/font": "7.4.47",
     "core-js": "^3.37.1",
     "roboto-fontface": "*",
+    "screenfull": "^6.0.2",
     "vue": "^3.4.31",
     "vuetify": "^3.6.11",
     "xmlbuilder2": "^3.1.1"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.5",
-    "@vue-leaflet/vue-leaflet": "^0.10.1",
     "eslint": "^8.57.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.29.1",

@@ -28,7 +28,7 @@
             or other GIS tool.
           </p>
         </v-card>
-        <v-card class="mx-auto mb-2" max-width="600" max-height="350">
+        <v-card class="mx-auto mb-2" max-width="600" max-height="350" @ready="readyMap()">
           <!-- Add a small input field with arrow icon for lat long-->
           <v-text-field
             hide-details="true"
@@ -41,13 +41,9 @@
             @click:append-inner="jumpToCoordinate()"
             @keydown.enter="jumpToCoordinate()"
           ></v-text-field>
-          <l-map
-            ref="map"
-            :use-global-leaflet="false"
-            style="z-index: 0; height: 300px; width: 100%"
-            @ready="readyMap()"
-          />
         </v-card>
+        <LeafletMap ref="leafletMap" @onAreaSelect="onAreaSelect" />
+        <!-- <v-card id="map" class="map mx-auto mb-2" height="400"  max-width="600"></v-card> -->
         <v-card class="mx-auto" max-width="600">
           <v-card-text>
             <v-form v-model="isFormValid">
@@ -61,6 +57,7 @@
                 :rules="[(v) => !!v]"
                 density="compact"
                 hide-details="true"
+                :readonly="true"
               ></v-text-field>
               <v-text-field
               class="pl-1"
@@ -71,6 +68,7 @@
                 :rules="[(v) => !!v]"
                 density="compact"
                 hide-details="true"
+                :readonly="true"
               ></v-text-field>
             </v-row>
               <v-text-field
@@ -98,9 +96,16 @@
               :disabled="!isFormValid"
               variant="elevated"
               color="primary"
-              @click="generateKML"
+              @click="downloadKML"
               >Download Search Grid</v-btn
             >
+            <v-btn
+              :disabled="!isFormValid"
+              variant="elevated"
+              color="primary"
+              @click="previewGrid"
+              >Preview Search Grid</v-btn
+            >            
           </v-card-actions>
         </v-card>
       </v-responsive>
@@ -109,21 +114,17 @@
 </template>
 
 <script>
+import LeafletMap from './LeafletMap'
 import { create } from "xmlbuilder2";
-import "leaflet/dist/leaflet.css";
-import L from "leaflet";
-import { LMap, LTileLayer } from "@vue-leaflet/vue-leaflet";
-import "@jonatanheyman/leaflet-areaselect";
-import "@jonatanheyman/leaflet-areaselect/src/leaflet-areaselect.css";
+
 
 export default {
   components: {
-    LMap,
-    LTileLayer,
+    LeafletMap
   },
   data() {
     return {
-      isFormValid: false,
+      isFormValid: true,
       lat1: null,
       lon1: null,
       lat2: null,
@@ -132,6 +133,7 @@ export default {
       fileName: "grid.kml",
       areaSelect: null,
       mapCenter: null,
+      map: null
     };
   },
   computed: {
@@ -163,6 +165,12 @@ export default {
     },
   },
   methods: {
+    onAreaSelect(bounds) {
+      this.lat1 = bounds.getNorthEast().lat.toFixed(5);
+      this.lon1 = bounds.getNorthEast().lng.toFixed(5);
+      this.lat2 = bounds.getSouthWest().lat.toFixed(5);
+      this.lon2 = bounds.getSouthWest().lng.toFixed(5);
+    },
     generateKML() {
       if (
         !this.lat1 ||
@@ -264,6 +272,10 @@ export default {
       }
 
       const kml = kmlDoc.end({ prettyPrint: true });
+      return kml;
+    },
+    downloadKML() {
+      const kml = this.generateKML();
 
       // Create a Blob with the KML data
       const blob = new Blob([kml], {
@@ -282,37 +294,17 @@ export default {
       // Revoke the object URL
       URL.revokeObjectURL(url);
     },
-    readyMap() {
-      var map = this.$refs.map.leafletObject;
-      map.setView([48.86, 2.34], 11);
-      L.tileLayer("https://{s}.tile.osm.org/{z}/{x}/{y}.png", {
-        attribution:
-          '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
-      }).addTo(map);
-      L.control.scale({ imperial: false }).addTo(map);
-
-      this.areaSelect = L.areaSelect({
-        width: 250,
-        height: 210,
-      });
-      const vm = this; // Store reference to Vue instance
-      this.areaSelect.on("change", function () {
-        console.log(map);
-        var bounds = this.getBounds();
-        // update the coordinates in the form
-        vm.lat1 = bounds.getNorthEast().lat.toFixed(5);
-        vm.lon1 = bounds.getNorthEast().lng.toFixed(5);
-        vm.lat2 = bounds.getSouthWest().lat.toFixed(5);
-        vm.lon2 = bounds.getSouthWest().lng.toFixed(5);
-      });
-      this.areaSelect.addTo(map);
+    previewGrid() {
+      const kml = this.generateKML();
+      this.$refs.leafletMap.previewGrid(kml);
     },
     jumpToCoordinate() {
+
       if (!this.mapCenter) {
         return;
       }
       const [lat, lon] = this.mapCenter.split(",").map(Number);
-      this.$refs.map.leafletObject.setView([lat, lon], 11);
+      this.$refs.leafletMap.jumpToCoordinate(lat,lon);
     },
   },
 };
