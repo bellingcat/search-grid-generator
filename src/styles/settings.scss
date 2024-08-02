@@ -8,3 +8,17 @@
 // @use 'vuetify/settings' with (
 //   $color-pack: false
 // );
+
+.fullscreen-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 2px;
+  background-color: #f4f4f4;
+  background-image: url('@/assets/fullscreen.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 60%;
+  &:hover {
+    cursor: pointer;
+  }
+}
