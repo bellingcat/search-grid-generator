@@ -7,6 +7,9 @@ const isSelfIntersecting = (polygonGeoJSON) => {
   return kinks.features.length > 0;
 }
 
+const createPolygonFromBbox = (lat1, lng1, lat2, lng2) => {
+  return turf.bboxPolygon([lat1, lng1, lat2, lng2]);
+}
 const createGrid = (polygonGeoJSON) => {
       // get polygon bbox
       const polygonBbox = turf.bbox(polygonGeoJSON);
@@ -50,4 +53,4 @@ const createKML = (geojson) => {
   return kml;
 }
 
-export { createKML, createGrid, isSelfIntersecting };
+export { createKML, createGrid, isSelfIntersecting, createPolygonFromBbox };
