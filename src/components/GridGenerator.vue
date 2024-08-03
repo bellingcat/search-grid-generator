@@ -57,7 +57,6 @@
                 :rules="[(v) => !!v]"
                 density="compact"
                 hide-details="true"
-                :readonly="true"
               ></v-text-field>
               <v-text-field
               class="pl-1"
@@ -68,7 +67,6 @@
                 :rules="[(v) => !!v]"
                 density="compact"
                 hide-details="true"
-                :readonly="true"
               ></v-text-field>
             </v-row>
               <v-text-field
@@ -141,6 +139,7 @@ export default {
         const [lat, lon] = value.split(",").map(Number);
         this.lat1 = lat;
         this.lon1 = lon;
+        this.$refs.leafletMap.onManualCoordsChange(this.lat2,this.lon2,this.lat1,this.lon1);
       },
     },
     coordinates2: {
@@ -154,6 +153,7 @@ export default {
         const [lat, lon] = value.split(",").map(Number);
         this.lat2 = lat;
         this.lon2 = lon;
+        this.$refs.leafletMap.onManualCoordsChange(this.lat2,this.lon2,this.lat1,this.lon1);
       },
     },
   },
