@@ -9,7 +9,7 @@ import "leaflet/dist/leaflet.css";
 import 'leaflet.fullscreen';
 import '@bopen/leaflet-area-selection/dist/index.css';
 import { DrawAreaSelection } from '@bopen/leaflet-area-selection';
-import { createGrid, isSelfIntersecting, createPolygonFromBbox } from '../lib/utils';
+import { createGrid, isSelfIntersecting, createPolygonFromBbox, getDimensions } from '../lib/utils';
 
 export default {
   name: "LeafletMap",
@@ -20,6 +20,13 @@ export default {
       selectedArea: null,
       areaSelection: null
     };
+  },
+  props: ['gridSize'],
+  watch: {
+    gridSize() {
+      // console.log('gridsize changed, do something');
+      this.updateGrid();
+    }
   },
   methods: {
     setupMap() {
@@ -41,7 +48,7 @@ export default {
 
       this.areaSelection = new DrawAreaSelection({
         active: false,
-        onPolygonDblClick: this.onPolygonDblClick,
+        onPolygonDblClick: this.updateGrid,
         onPolygonReady: this.onPolygonReady,
         onButtonDeactivate: this.clearAll,
         onButtonActivate: this.clearAll,
@@ -78,7 +85,7 @@ export default {
         this.polygon = customPolygon.addTo(this.map);
         this.map.fitBounds(this.polygon.getBounds());
         // create custom grid
-        const grid = createGrid(customPolygon.toGeoJSON());
+        const grid = createGrid(customPolygon.toGeoJSON(), this.gridSize);
         const gridstyle = {
           color: '#ffffff',
           weight: 1,
@@ -95,21 +102,22 @@ export default {
     onPolygonReady(aPolygon) {
       this.polygon = aPolygon;
     },
-    onPolygonDblClick(aPolygon) {
+    updateGrid() {
       // remove old grid
       this.clearGrid();
-      // set var
-      this.polygon = aPolygon;
       // polygon to GeoJSON
-      const polygonGeoJSON = aPolygon.toGeoJSON();
+      const polygonGeoJSON = this.polygon.toGeoJSON();
       // check if the current polygon intersects with itself, if so, do nothing
       if (isSelfIntersecting(polygonGeoJSON)) {
         alert('The polygon must not overlap with itself, please fix!');
         return;
-      }
-
+      }     
       // create grid
-      const grid = createGrid(polygonGeoJSON);
+      const { grid, error } = createGrid(polygonGeoJSON, this.gridSize);
+      if (error) {
+        alert('An error has occurred. Check the grid size or the polygon shape.')
+        return;
+      }
       const gridstyle = {
         color: '#ffffff',
         weight: 1,
@@ -117,12 +125,10 @@ export default {
         fillColor: '#ff0000', // square bg
         fillOpacity: 0.2 // square opacity
       }
-      this.gridGeoJson = L.geoJSON(grid, { ...gridstyle }).setStyle(gridstyle);
+      this.gridGeoJson = L.geoJSON(grid, { ...gridstyle });
       this.gridGeoJson.addTo(this.map);
       // send bbox coordinates to parent
       this.$emit('onAreaSelect', this.gridGeoJson.getBounds())
-
-
     },
     jumpToCoordinate(lat,lon) {
       this.map.setView([lat, lon], 11);

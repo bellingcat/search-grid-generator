@@ -42,7 +42,7 @@
             @keydown.enter="jumpToCoordinate()"
           ></v-text-field>
         </v-card>
-        <LeafletMap ref="leafletMap" @onAreaSelect="onAreaSelect" />
+        <LeafletMap ref="leafletMap" @onAreaSelect="onAreaSelect" :gridSize="gridSize" />
         <!-- <v-card id="map" class="map mx-auto mb-2" height="400"  max-width="600"></v-card> -->
         <v-card class="mx-auto" max-width="600">
           <v-card-text>
@@ -172,21 +172,17 @@ export default {
       }
     },
     downloadKML() {
-
       // get gridgeojson
       const gridGeoJson = this.$refs.leafletMap.gridGeoJson;
       // convert to kml
-      const style = {
-        color: '#ffffff',
-        weight: 1,
-        opacity: 1,
-        fillColor: '#ff0000', // square bg
-        fillOpacity: 0.2 // square opacity
-      };
-      const foo = gridGeoJson.setStyle(style).toGeoJSON();
-      console.log(foo);
+      // const style = {
+      //   color: '#ffffff',
+      //   weight: 1,
+      //   opacity: 1,
+      //   fillColor: '#ff0000', // square bg
+      //   fillOpacity: 0.2 // square opacity
+      // };
       const kml = createKML(gridGeoJson.toGeoJSON());
-      console.log(kml);
 
 
       // Create a Blob with the KML data
