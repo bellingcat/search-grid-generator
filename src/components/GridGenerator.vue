@@ -159,10 +159,17 @@ export default {
   },
   methods: {
     onAreaSelect(bounds) {
-      this.lat1 = bounds.getNorthEast().lat.toFixed(5);
-      this.lon1 = bounds.getNorthEast().lng.toFixed(5);
-      this.lat2 = bounds.getSouthWest().lat.toFixed(5);
-      this.lon2 = bounds.getSouthWest().lng.toFixed(5);
+      if (!bounds) {
+        this.lat1 = null;
+        this.lon1 = null;
+        this.lat2 = null;
+        this.lon2 = null;
+      } else {
+        this.lat1 = bounds.getNorthEast().lat.toFixed(5);
+        this.lon1 = bounds.getNorthEast().lng.toFixed(5);
+        this.lat2 = bounds.getSouthWest().lat.toFixed(5);
+        this.lon2 = bounds.getSouthWest().lng.toFixed(5);
+      }
     },
     downloadKML() {
 

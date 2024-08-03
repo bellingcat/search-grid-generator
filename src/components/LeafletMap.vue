@@ -42,15 +42,21 @@ export default {
       const areaSelection = new DrawAreaSelection({
         active: false,
         onPolygonDblClick: this.onPolygonDblClick,
+        onButtonDeactivate: this.clearGrid,
+
       });
       map.addControl(areaSelection);
       this.map = map;
     },
-    onPolygonDblClick(aPolygon) {
-      // remove old grid
+    clearGrid() {
       if (this.map.hasLayer(this.gridGeoJson)) {
         this.map.removeLayer(this.gridGeoJson);
+        this.$emit('onAreaSelect', null);
       }
+    },
+    onPolygonDblClick(aPolygon) {
+      // remove old grid
+      this.clearGrid();
       // polygon to GeoJSON
       const polygonGeoJSON = aPolygon.toGeoJSON();
       // check if the current polygon intersects with itself, if so, do nothing
