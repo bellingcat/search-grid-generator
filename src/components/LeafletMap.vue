@@ -47,6 +47,10 @@ export default {
       this.map = map;
     },
     onPolygonDblClick(aPolygon) {
+      // remove old grid
+      if (this.map.hasLayer(this.gridGeoJson)) {
+        this.map.removeLayer(this.gridGeoJson);
+      }
       // polygon to GeoJSON
       const polygonGeoJSON = aPolygon.toGeoJSON();
       const grid = createGrid(polygonGeoJSON);
