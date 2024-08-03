@@ -93,19 +93,12 @@
           </v-card-text>
           <v-card-actions>
             <v-btn
-              :disabled="!isFormValid"
+
               variant="elevated"
               color="primary"
               @click="downloadKML"
               >Download Search Grid</v-btn
-            >
-            <v-btn
-              :disabled="!isFormValid"
-              variant="elevated"
-              color="primary"
-              @click="previewGrid"
-              >Preview Search Grid</v-btn
-            >            
+            >          
           </v-card-actions>
         </v-card>
       </v-responsive>
@@ -115,7 +108,7 @@
 
 <script>
 import LeafletMap from './LeafletMap'
-import { create } from "xmlbuilder2";
+import { createKML } from '../lib/utils';
 
 
 export default {
@@ -171,111 +164,23 @@ export default {
       this.lat2 = bounds.getSouthWest().lat.toFixed(5);
       this.lon2 = bounds.getSouthWest().lng.toFixed(5);
     },
-    generateKML() {
-      if (
-        !this.lat1 ||
-        !this.lon1 ||
-        !this.lat2 ||
-        !this.lon2 ||
-        this.gridSize <= 0
-      ) {
-        return;
-      }
-      var fileName = this.fileName;
-      fileName = !fileName ? "grid.kml" : fileName;
-      this.fileName = fileName.endsWith(".kml") ? fileName : `${fileName}.kml`;
-
-      const [lat1, lon1, lat2, lon2] = [
-        this.lat1,
-        this.lon1,
-        this.lat2,
-        this.lon2,
-      ].map(Number);
-
-      const gridSizeKm = this.gridSize;
-
-      // Convert grid size to degrees
-      const degPerKm = 1 / 111; // Approximate value for one degree of latitude in km
-      const midLat = (lat1 + lat2) / 2;
-      const latStep = gridSizeKm * degPerKm;
-      const lonStep =
-        (gridSizeKm * degPerKm) / Math.cos((midLat * Math.PI) / 180);
-
-      // Initialize KML document
-      const kmlDoc = create({ version: "1.0", encoding: "UTF-8" })
-        .ele("kml", { xmlns: "http://www.opengis.net/kml/2.2" })
-        .ele("Document")
-        .ele("name")
-        .txt("Grid")
-        .up()
-        .ele("Style", { id: "1" })
-        .ele("LineStyle", { id: "2" })
-        .ele("color")
-        .txt("ffffffff")
-        .up()
-        .ele("colorMode")
-        .txt("normal")
-        .up()
-        .ele("width")
-        .txt("2")
-        .up()
-        .up()
-        .ele("PolyStyle", { id: "3" })
-        .ele("color")
-        .txt("000000ff")
-        .up()
-        .ele("colorMode")
-        .txt("normal")
-        .up()
-        .ele("fill")
-        .txt("1")
-        .up()
-        .ele("outline")
-        .txt("1")
-        .up()
-        .up()
-        .up();
-
-      for (
-        let lat = Math.min(lat1, lat2);
-        lat < Math.max(lat1, lat2);
-        lat += latStep
-      ) {
-        for (
-          let lon = Math.min(lon1, lon2);
-          lon < Math.max(lon1, lon2);
-          lon += lonStep
-        ) {
-          kmlDoc
-            .ele("Placemark")
-            .ele("name")
-            .txt(`(${lat.toFixed(5)}, ${lon.toFixed(5)})`)
-            .up()
-            .ele("styleUrl")
-            .txt("#1")
-            .up()
-            .ele("Polygon")
-            .ele("outerBoundaryIs")
-            .ele("LinearRing")
-            .ele("coordinates")
-            .txt(`${lon},${lat},0 `)
-            .txt(`${lon + lonStep},${lat},0 `)
-            .txt(`${lon + lonStep},${lat + latStep},0 `)
-            .txt(`${lon},${lat + latStep},0 `)
-            .txt(`${lon},${lat},0`)
-            .up()
-            .up()
-            .up()
-            .up()
-            .up();
-        }
-      }
-
-      const kml = kmlDoc.end({ prettyPrint: true });
-      return kml;
-    },
     downloadKML() {
-      const kml = this.generateKML();
+
+      // get gridgeojson
+      const gridGeoJson = this.$refs.leafletMap.gridGeoJson;
+      // convert to kml
+      const style = {
+        color: '#ffffff',
+        weight: 1,
+        opacity: 1,
+        fillColor: '#ff0000', // square bg
+        fillOpacity: 0.2 // square opacity
+      };
+      const foo = gridGeoJson.setStyle(style).toGeoJSON();
+      console.log(foo);
+      const kml = createKML(gridGeoJson.toGeoJSON());
+      console.log(kml);
+
 
       // Create a Blob with the KML data
       const blob = new Blob([kml], {
@@ -286,7 +191,7 @@ export default {
       // Create a temporary link to trigger the download
       const a = document.createElement("a");
       a.href = url;
-      a.download = this.fileName;
+      a.download = 'grid.kml';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -296,7 +201,8 @@ export default {
     },
     previewGrid() {
       const kml = this.generateKML();
-      this.$refs.leafletMap.previewGrid(kml);
+      return kml;
+      // this.$refs.leafletMap.previewGrid(kml);
     },
     jumpToCoordinate() {
 
