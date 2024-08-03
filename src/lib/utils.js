@@ -2,6 +2,11 @@ import * as L from 'leaflet';
 import * as turf from "@turf/turf";
 import { toKML } from 'geokml';
 
+const isSelfIntersecting = (polygonGeoJSON) => {
+  const kinks = turf.kinks(polygonGeoJSON);
+  return kinks.features.length > 0;
+}
+
 const createGrid = (polygonGeoJSON) => {
       // get polygon bbox
       const polygonBbox = turf.bbox(polygonGeoJSON);
@@ -45,4 +50,4 @@ const createKML = (geojson) => {
   return kml;
 }
 
-export { createKML, createGrid };
+export { createKML, createGrid, isSelfIntersecting };
