@@ -9,7 +9,7 @@ import "leaflet/dist/leaflet.css";
 import 'leaflet.fullscreen';
 import '@bopen/leaflet-area-selection/dist/index.css';
 import { DrawAreaSelection } from '@bopen/leaflet-area-selection';
-import { createGrid } from '../lib/utils';
+import { createGrid, isSelfIntersecting } from '../lib/utils';
 
 
 export default {
@@ -40,8 +40,8 @@ export default {
       L.control.scale({ imperial: false }).addTo(map);
 
       const areaSelection = new DrawAreaSelection({
-        // onPolygonReady: this.onPolygonReady,
-        onPolygonDblClick: this.onPolygonDblClick
+        active: false,
+        onPolygonDblClick: this.onPolygonDblClick,
       });
       map.addControl(areaSelection);
       this.map = map;
@@ -53,6 +53,13 @@ export default {
       }
       // polygon to GeoJSON
       const polygonGeoJSON = aPolygon.toGeoJSON();
+      // check if the current polygon intersects with itself, if so, do nothing
+      if (isSelfIntersecting(polygonGeoJSON)) {
+        alert('The polygon must not overlap with itself, please fix!');
+        return;
+      }
+
+      // create grid
       const grid = createGrid(polygonGeoJSON);
       const gridstyle = {
         color: '#ffffff',
@@ -63,20 +70,11 @@ export default {
       }
       this.gridGeoJson = L.geoJSON(grid, { ...gridstyle }).setStyle(gridstyle);
       this.gridGeoJson.addTo(this.map);
+      // send bbox coordinates to parent
+      this.$emit('onAreaSelect', this.gridGeoJson.getBounds())
 
 
     },
-    // async toggleFullscreen() {
-    //   if (screenfull.isEnabled) {
-    //     const aMap = document.getElementById('map');
-    //     console.log(screenfull.isFullscreen, this.selectedArea)
-    //     await screenfull.toggle(aMap);
-    //     console.log(screenfull.isFullscreen, this.selectedArea)
-    //     if (!screenfull.isFullscreen) {
-    //       this.map.fitBounds(this.selectedArea);
-    //     }
-    //   }
-    // },
     jumpToCoordinate(lat,lon) {
       this.map.setView([lat, lon], 11);
     },
