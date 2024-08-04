@@ -16,6 +16,7 @@
     "geokml": "^1.0.2",
     "leaflet": "^1.9.4",
     "leaflet.fullscreen": "^3.0.2",
+    "pinia": "^2.2.0",
     "roboto-fontface": "*",
     "vue": "^3.4.31",
     "vuetify": "^3.6.11"
@@ -23,10 +24,12 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.5",
     "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-n": "^16.6.2",
     "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-promise": "^6.4.0",
     "eslint-plugin-vue": "^9.27.0",
     "prettier": "3.3.3",
