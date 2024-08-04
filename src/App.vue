@@ -1,11 +1,11 @@
 <template>
-  <v-app>
-    <v-main>
-      <router-view />
-    </v-main>
-  </v-app>
+    <v-app>
+        <v-main>
+            <GridGenerator />
+        </v-main>
+    </v-app>
 </template>
 
 <script setup>
-//
+import GridGenerator from './components/GridGenerator.vue';
 </script>
