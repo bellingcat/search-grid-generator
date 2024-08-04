@@ -34,9 +34,6 @@ const mapStore = useMapStore();
 const coordinatesStore = useCoordinatesStore();
 
 // reactive variables
-// const map = ref(null);
-// const polygonLayer = ref(null);
-// const gridLayer = ref(null);
 const state = reactive({
     map: null,
     drawing: {},
@@ -66,8 +63,6 @@ watch(
             return;
         }
         const [lat, lng] = newPoint.split(',');
-        const parsedLat = parseFloat(lat);
-        const parsedLng = parseFloat(lng);
         // center map on new location, but also clear the map
         state.map.setView([lat, lng]);
         clearAll();
