@@ -31,7 +31,7 @@
 </template>
 
 <script setup>
-import { computed, reactive, watch } from 'vue';
+import { reactive, watch } from 'vue';
 import GridSizeSlider from './GridSizeSlider.vue';
 import { cleanCoordinate } from '@/lib/misc';
 import { useCoordinatesStore } from '@/stores/coordinatesStore';
@@ -51,12 +51,6 @@ watch(
     },
     { deep: true },
 );
-
-// Object to store validation errors
-const errors = reactive({
-    c1: '',
-    c2: '',
-});
 
 // Validation rules
 const validateCoordinate = (key, value) => {
@@ -81,8 +75,4 @@ const validateCoordinate = (key, value) => {
         // console.log('validation error, no update');
     }
 };
-
-const hasErrors = computed(() =>
-    Object.values(errors).some((error) => error !== ''),
-);
 </script>

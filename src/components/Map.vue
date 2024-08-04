@@ -77,7 +77,7 @@ watch(
         // if booth are not null, clean map, create new drawing based on given coordinates
         const { c1, c2 } = newCoordinates;
         if (c1 !== '' && c2 !== '') {
-            console.log('received 2 valid coordinates, draw a new polygon');
+            // console.log('received 2 valid coordinates, draw a new polygon');
             const p1 = c1.split(',');
             const p2 = c2.split(',');
             onCustomCoordinates(p1, p2);
