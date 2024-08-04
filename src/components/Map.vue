@@ -25,11 +25,13 @@ import { DrawAreaSelection } from '@bopen/leaflet-area-selection';
 import { useGridSizeStore } from '@/stores/gridSizeStore';
 import { useJumpStore } from '@/stores/jumpStore';
 import { useMapStore } from '@/stores/mapStore';
+import { useCoordinatesStore } from '@/stores/coordinatesStore';
 import * as mapUtils from '../lib/maputils';
 
 const gridSizeStore = useGridSizeStore();
 const jumpStore = useJumpStore();
 const mapStore = useMapStore();
+const coordinatesStore = useCoordinatesStore();
 
 // reactive variables
 // const map = ref(null);
@@ -42,6 +44,7 @@ const state = reactive({
     isAlertVisible: false,
     alertMessage: '',
     alertType: '',
+    isCustomPoly: false,
 });
 
 // watch for grid size change
@@ -69,6 +72,23 @@ watch(
         state.map.setView([lat, lng]);
         clearAll();
     },
+);
+
+// watch for coordinates input change
+watch(
+    () => coordinatesStore.coordinates,
+    (newCoordinates, oldCoordinates) => {
+        // console.log('Object changed:', JSON.stringify(newCoordinates));
+        // if booth are not null, clean map, create new drawing based on given coordinates
+        const { c1, c2 } = newCoordinates;
+        if (c1 !== '' && c2 !== '') {
+            console.log('received 2 valid coordinates, draw a new polygon');
+            const p1 = c1.split(',');
+            const p2 = c2.split(',');
+            onCustomCoordinates(p1, p2);
+        }
+    },
+    { deep: true },
 );
 
 // add the map when the component is mounted
@@ -101,8 +121,8 @@ onMounted(() => {
         active: false,
         onPolygonDblClick: updateGrid,
         onPolygonReady: onPolygonReady,
-        onButtonDeactivate: clearAll,
-        onButtonActivate: clearAll,
+        onButtonDeactivate: onButtonDeactivate,
+        onButtonActivate: onButtonActivate,
     });
 
     // detect drag (end) of the map, clears the point input field in Jumper
@@ -132,11 +152,7 @@ const hideAlert = () => {
 const clearGrid = () => {
     if (state.map.hasLayer(state.grid)) {
         state.map.removeLayer(state.grid);
-        // TODO: reset the coords inout fields
-        // this.$emit('onAreaSelect', null);
     }
-    // const { currentValue, minValue, maxValue } = gridSizeStore;
-    // console.log('in Map, hows the gridsize?', currentValue, minValue, maxValue);
 };
 
 // removes the drawn polygon from the map
@@ -144,6 +160,23 @@ const clearDrawing = () => {
     if (state.map.hasLayer(state.drawing)) {
         state.map.removeLayer(state.drawing);
     }
+};
+
+const onButtonDeactivate = () => {
+    // if we have a custom poly, reset the value
+    if (state.isCustomPoly) {
+        coordinatesStore.clearCoordinates();
+        state.isCustomPoly = false;
+    }
+    clearAll();
+};
+const onButtonActivate = () => {
+    // if we have a custom poly, reset the value
+    if (state.isCustomPoly) {
+        coordinatesStore.clearCoordinates();
+        state.isCustomPoly = false;
+    }
+    clearAll();
 };
 
 // clears the map of all our layers
@@ -154,12 +187,32 @@ const clearAll = () => {
     // also clear grid in the map store
     mapStore.updateGrid(null);
     mapStore.updateIsPoly(false);
+    // reset custom coordinates
+    // TODO: only if we need to
+    // coordinatesStore.clearCoordinates();
 };
 
 // callback called during the adjustment phase every time a change is performed to the polygon
 // Receives the Leaflet.Polygon and the control instance as arguments.
 const onPolygonReady = (polygon) => {
     state.drawing = polygon; // update the state with the current polygon
+};
+
+// if we receive 2 valid coordinates from the form input
+// clean the map, draw new polygon and update grid
+const onCustomCoordinates = (c1, c2) => {
+    // clean map
+    clearAll();
+    // create polygon from coordinates
+    const customPolygon = mapUtils.createPolygonFromCoordinates(c1, c2);
+    const geojson = L.geoJSON(customPolygon, { color: 'blue' });
+    geojson.addTo(state.map);
+    state.map.fitBounds(geojson.getBounds());
+    state.drawing = geojson;
+    // set local state
+    state.isCustomPoly = true;
+    // create grid
+    updateGrid();
 };
 
 // called when performing a double-click on the draw polygon when in the adjustment phase

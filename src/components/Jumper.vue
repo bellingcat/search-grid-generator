@@ -18,6 +18,7 @@
 <script setup>
 import { ref, computed, watch } from 'vue';
 import { useJumpStore } from '@/stores/jumpStore';
+import { cleanCoordinate } from '@/lib/misc';
 const jumpStore = useJumpStore();
 
 const localPoint = ref('');
@@ -35,20 +36,10 @@ const updatePoint = () => {
     // TODO: convert different coordinate syntax forms
     // For now just split the input at the comma and perform
     // a very basic check if the input is an integer/float
-    if (!localPoint.value.includes(',')) {
-        return; // do nothing
+    const { coordinate, error } = cleanCoordinate(localPoint.value);
+    // if no error was found, update the store with the clean coordinate
+    if (!error) {
+        jumpStore.setPoint(newPoint);
     }
-    // split and quick check
-    const [lat, lng] = localPoint.value.split(',').map((s) => s.trim());
-    const parsedLat = parseFloat(lat);
-    const parsedLng = parseFloat(lng);
-    if (isNaN(parsedLat) || isNaN(parsedLng)) {
-        return; // do nothing
-    }
-    // we have a valid input, update the store
-    const newPoint = `${parsedLat},${parsedLng}`;
-    jumpStore.setPoint(newPoint);
 };
-
-// 52.518611, 13.408333
 </script>
