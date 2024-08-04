@@ -108,3 +108,24 @@ export const createKML = (geojson) => {
     );
     return kml;
 };
+
+export const createPolygonFromCoordinates = (p1, p2) => {
+    // as the 2 coordinates might not be in the correct order, determine the W, S, E, N points
+    // also as we expect input in latlng, we need to convert them to lnglat as we create the
+    // polygon with turf, which uses lnglat, compared to leaflet, which uses latlng
+    [p1[0], p1[1]] = [p1[1], p1[0]];
+    [p2[0], p2[1]] = [p2[1], p2[0]];
+
+    // Calculate the bounding box
+    const west = Math.min(p1[0], p2[0]);
+    const south = Math.min(p1[1], p2[1]);
+    const east = Math.max(p1[0], p2[0]);
+    const north = Math.max(p1[1], p2[1]);
+
+    // Create the bounding box array: [west, south, east, north]
+    const bbox = [west, south, east, north];
+
+    // Create a polygon from the bounding box
+    const rectanglePolygon = turf.bboxPolygon(bbox);
+    return rectanglePolygon;
+};
