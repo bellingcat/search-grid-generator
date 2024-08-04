@@ -1,7 +1,7 @@
 <template>
     <v-img height="100" src="@/assets/logo.svg" />
     <h1 class="py-2 font-weight-bold">Bellingcat Search Grid Generator</h1>
-    <!--
+
     <a href="https://www.bellingcat.com"
         ><img
             alt="Bellingcat logo: Discover Bellingcat"
@@ -15,7 +15,7 @@
             alt="Github logo: Explore the code"
             src="https://img.shields.io/badge/Explore%20the%20code-%20?style=for-the-badge&logo=github&color=%2329903b"
     /></a>
--->
+
     <!-- Title and Information -->
     <v-card class="mx-auto" max-width="600" variant="text">
         <p class="py-2">
