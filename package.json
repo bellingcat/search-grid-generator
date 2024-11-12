@@ -11,6 +11,7 @@
     "@jonatanheyman/leaflet-areaselect": "^1.2.0",
     "@mdi/font": "7.4.47",
     "core-js": "^3.37.1",
+    "geo-coordinates-parser": "^1.7.4",
     "roboto-fontface": "*",
     "vue": "^3.4.31",
     "vuetify": "^3.6.11",
