@@ -115,6 +115,7 @@ import L from "leaflet";
 import { LMap, LTileLayer } from "@vue-leaflet/vue-leaflet";
 import "@jonatanheyman/leaflet-areaselect";
 import "@jonatanheyman/leaflet-areaselect/src/leaflet-areaselect.css";
+import { convert } from 'geo-coordinates-parser'
 
 export default {
   components: {
@@ -311,7 +312,8 @@ export default {
       if (!this.mapCenter) {
         return;
       }
-      const [lat, lon] = this.mapCenter.split(",").map(Number);
+      const coordinates = convert(this.mapCenter)
+      const [lat, lon] = [coordinates.decimalLatitude, coordinates.decimalLongitude];
       this.$refs.map.leafletObject.setView([lat, lon], 11);
     },
   },
