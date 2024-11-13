@@ -2,23 +2,23 @@
   <v-app>
     <v-container>
       <v-responsive class="align-center text-center overflow-visible">
-        <v-img height="100" src="@/assets/logo.svg" />
+        <v-img height="100" src="@/assets/logo.svg"/>
         <h1 class="py-2 font-weight-bold">Bellingcat Search Grid Generator</h1>
         <a href="https://www.bellingcat.com"
-          ><img
-            alt="Bellingcat logo: Discover Bellingcat"
-            src="https://img.shields.io/badge/Discover%20Bellingcat-%20?style=for-the-badge&logo=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAA4AAAAYCAYAAADKx8xXAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TS0UqDnZQEcxQneyiIo6likWwUNoKrTqYXPoFTRqSFBdHwbXg4Mdi1cHFWVcHV0EQ%2FABxdnBSdJES%2F5cUWsR4cNyPd%2Fced%2B8AoVllqtkTA1TNMtKJuJjLr4rBVwQwhhBEDEvM1JOZxSw8x9c9fHy9i%2FIs73N%2Fjn6lYDLAJxLHmG5YxBvEs5uWznmfOMzKkkJ8Tjxp0AWJH7kuu%2FzGueSwwDPDRjY9TxwmFktdLHcxKxsq8QxxRFE1yhdyLiuctzir1Tpr35O%2FMFTQVjJcpzmKBJaQRIo6klFHBVVYiNKqkWIiTftxD%2F%2BI40%2BRSyZXBYwcC6hBheT4wf%2Fgd7dmcXrKTQrFgcCLbX%2BMA8FdoNWw7e9j226dAP5n4Err%2BGtNYO6T9EZHixwBA9vAxXVHk%2FeAyx1g6EmXDMmR%2FDSFYhF4P6NvygODt0Dfmttbex%2BnD0CWulq%2BAQ4OgYkSZa97vLu3u7d%2Fz7T7%2BwHEU3LHAa%2FQ6gAAAAZiS0dEAAAAAAAA%2BUO7fwAAAAlwSFlzAAAuIwAALiMBeKU%2FdgAAAAd0SU1FB%2BgFHwwiMH4odB4AAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAA50lEQVQ4y82SvWpCQRCFz25ERSJiCNqlUiS1b5AuEEiZIq1NOsGXCKms0wXSp9T6dskDiFikyiPc%2FrMZyf3FXSGQ0%2BzuzPl2ZoeVKgQ0gQ2wBVpVHlcDkjM5V%2FJ5nag6sJ%2FZX%2Bh%2FC7gEhqeAFKf7p1M9aB3b5oN1OomB7g1axUBPBr3GQHODHmOgqUF3MZAzKI2d4LWBV4H%2BMXDuJd1a7Cew1k7SwksaHC4LqNaw7aeX9GWHXkC1G1sTAS17Y3Kk2lnp4wNLiz0DrgLq8qt2MfmSSabAO%2FBBXp26dtrADPjOmN%2BAUdG7B3cE61l5hOZiAAAAAElFTkSuQmCC&logoColor=%23fff&color=%23000" /></a
+        ><img
+          alt="Bellingcat logo: Discover Bellingcat"
+          src="https://img.shields.io/badge/Discover%20Bellingcat-%20?style=for-the-badge&logo=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAA4AAAAYCAYAAADKx8xXAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TS0UqDnZQEcxQneyiIo6likWwUNoKrTqYXPoFTRqSFBdHwbXg4Mdi1cHFWVcHV0EQ%2FABxdnBSdJES%2F5cUWsR4cNyPd%2Fced%2B8AoVllqtkTA1TNMtKJuJjLr4rBVwQwhhBEDEvM1JOZxSw8x9c9fHy9i%2FIs73N%2Fjn6lYDLAJxLHmG5YxBvEs5uWznmfOMzKkkJ8Tjxp0AWJH7kuu%2FzGueSwwDPDRjY9TxwmFktdLHcxKxsq8QxxRFE1yhdyLiuctzir1Tpr35O%2FMFTQVjJcpzmKBJaQRIo6klFHBVVYiNKqkWIiTftxD%2F%2BI40%2BRSyZXBYwcC6hBheT4wf%2Fgd7dmcXrKTQrFgcCLbX%2BMA8FdoNWw7e9j226dAP5n4Err%2BGtNYO6T9EZHixwBA9vAxXVHk%2FeAyx1g6EmXDMmR%2FDSFYhF4P6NvygODt0Dfmttbex%2BnD0CWulq%2BAQ4OgYkSZa97vLu3u7d%2Fz7T7%2BwHEU3LHAa%2FQ6gAAAAZiS0dEAAAAAAAA%2BUO7fwAAAAlwSFlzAAAuIwAALiMBeKU%2FdgAAAAd0SU1FB%2BgFHwwiMH4odB4AAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAA50lEQVQ4y82SvWpCQRCFz25ERSJiCNqlUiS1b5AuEEiZIq1NOsGXCKms0wXSp9T6dskDiFikyiPc%2FrMZyf3FXSGQ0%2BzuzPl2ZoeVKgQ0gQ2wBVpVHlcDkjM5V%2FJ5nag6sJ%2FZX%2Bh%2FC7gEhqeAFKf7p1M9aB3b5oN1OomB7g1axUBPBr3GQHODHmOgqUF3MZAzKI2d4LWBV4H%2BMXDuJd1a7Cew1k7SwksaHC4LqNaw7aeX9GWHXkC1G1sTAS17Y3Kk2lnp4wNLiz0DrgLq8qt2MfmSSabAO%2FBBXp26dtrADPjOmN%2BAUdG7B3cE61l5hOZiAAAAAElFTkSuQmCC&logoColor=%23fff&color=%23000"/></a
         ><!--
           --><a href="https://discord.gg/bellingcat"
-          ><img
-            alt="Discord logo: Join our community"
-            src="https://img.shields.io/badge/Join%20our%20community-%20?style=for-the-badge&logo=discord&logoColor=%23fff&color=%235865F2" /></a
-        ><!--
+      ><img
+        alt="Discord logo: Join our community"
+        src="https://img.shields.io/badge/Join%20our%20community-%20?style=for-the-badge&logo=discord&logoColor=%23fff&color=%235865F2"/></a
+      ><!--
           --><a href="https://github.com/bellingcat/search-grid-generator"
-          ><img
-            alt="Github logo: Explore the code"
-            src="https://img.shields.io/badge/Explore%20the%20code-%20?style=for-the-badge&logo=github&color=%2329903b"
-        /></a>
+      ><img
+        alt="Github logo: Explore the code"
+        src="https://img.shields.io/badge/Explore%20the%20code-%20?style=for-the-badge&logo=github&color=%2329903b"
+      /></a>
         <!-- Title and Information -->
         <v-card class="mx-auto" max-width="600" variant="text">
           <p class="py-2">
@@ -44,35 +44,40 @@
           <l-map
             ref="map"
             :use-global-leaflet="false"
-            style="z-index: 0; height: 300px; width: 100%"
+            style="z-index: 0; height: 300px; width: 100%; position: relative;"
             @ready="readyMap()"
-          />
+          >
+            <svg ref="svgOverlay" class="svg-overlay">
+              <!-- Lines will be added dynamically here -->
+            </svg>
+            <div class="red-dot"/> <!-- This is the red dot -->
+          </l-map>
         </v-card>
         <v-card class="mx-auto" max-width="600">
           <v-card-text>
             <v-form v-model="isFormValid">
               <v-row class="px-3 pb-5 pt-1">
-              <v-text-field
-                class="pr-1"
-                v-model="coordinates1"
-                label="Coordinate 1 (lat, lon)"
-                placeholder="48.90529373066811, 2.2584719879516464"
-                outlined
-                :rules="[(v) => !!v]"
-                density="compact"
-                hide-details="true"
-              ></v-text-field>
-              <v-text-field
-              class="pl-1"
-                v-model="coordinates2"
-                label="Coordinate 2 (lat, lon)"
-                placeholder="48.81418021233939, 2.4172392962309246"
-                outlined
-                :rules="[(v) => !!v]"
-                density="compact"
-                hide-details="true"
-              ></v-text-field>
-            </v-row>
+                <v-text-field
+                  class="pr-1"
+                  v-model="coordinates1"
+                  label="Coordinate 1 (lat, lon)"
+                  placeholder="48.90529373066811, 2.2584719879516464"
+                  outlined
+                  :rules="[(v) => !!v]"
+                  density="compact"
+                  hide-details="true"
+                ></v-text-field>
+                <v-text-field
+                  class="pl-1"
+                  v-model="coordinates2"
+                  label="Coordinate 2 (lat, lon)"
+                  placeholder="48.81418021233939, 2.4172392962309246"
+                  outlined
+                  :rules="[(v) => !!v]"
+                  density="compact"
+                  hide-details="true"
+                ></v-text-field>
+              </v-row>
               <v-text-field
                 v-model.number="gridSize"
                 label="Grid Size (km)"
@@ -99,7 +104,8 @@
               variant="elevated"
               color="primary"
               @click="generateKML"
-              >Download Search Grid</v-btn
+            >Download Search Grid
+            </v-btn
             >
           </v-card-actions>
         </v-card>
@@ -107,20 +113,39 @@
     </v-container>
   </v-app>
 </template>
-
+<style>
+.svg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.35;
+  z-index: 430; /* Ensure it is above the map but below the dot if needed */
+}
+.red-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+  z-index: 430;
+}
+</style>
 <script>
-import { create } from "xmlbuilder2";
+import {create} from "xmlbuilder2";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import { LMap, LTileLayer } from "@vue-leaflet/vue-leaflet";
+import {LMap, LTileLayer} from "@vue-leaflet/vue-leaflet";
 import "@jonatanheyman/leaflet-areaselect";
 import "@jonatanheyman/leaflet-areaselect/src/leaflet-areaselect.css";
-import { convert } from 'geo-coordinates-parser'
-
 export default {
   components: {
     LMap,
-    LTileLayer,
+    // LTileLayer,
   },
   data() {
     return {
@@ -177,32 +202,28 @@ export default {
       var fileName = this.fileName;
       fileName = !fileName ? "grid.kml" : fileName;
       this.fileName = fileName.endsWith(".kml") ? fileName : `${fileName}.kml`;
-
       const [lat1, lon1, lat2, lon2] = [
         this.lat1,
         this.lon1,
         this.lat2,
         this.lon2,
       ].map(Number);
-
       const gridSizeKm = this.gridSize;
-
       // Convert grid size to degrees
       const degPerKm = 1 / 111; // Approximate value for one degree of latitude in km
       const midLat = (lat1 + lat2) / 2;
       const latStep = gridSizeKm * degPerKm;
       const lonStep =
         (gridSizeKm * degPerKm) / Math.cos((midLat * Math.PI) / 180);
-
       // Initialize KML document
-      const kmlDoc = create({ version: "1.0", encoding: "UTF-8" })
-        .ele("kml", { xmlns: "http://www.opengis.net/kml/2.2" })
+      const kmlDoc = create({version: "1.0", encoding: "UTF-8"})
+        .ele("kml", {xmlns: "http://www.opengis.net/kml/2.2"})
         .ele("Document")
         .ele("name")
         .txt("Grid")
         .up()
-        .ele("Style", { id: "1" })
-        .ele("LineStyle", { id: "2" })
+        .ele("Style", {id: "1"})
+        .ele("LineStyle", {id: "2"})
         .ele("color")
         .txt("ffffffff")
         .up()
@@ -213,7 +234,7 @@ export default {
         .txt("2")
         .up()
         .up()
-        .ele("PolyStyle", { id: "3" })
+        .ele("PolyStyle", {id: "3"})
         .ele("color")
         .txt("000000ff")
         .up()
@@ -228,7 +249,6 @@ export default {
         .up()
         .up()
         .up();
-
       for (
         let lat = Math.min(lat1, lat2);
         lat < Math.max(lat1, lat2);
@@ -263,15 +283,12 @@ export default {
             .up();
         }
       }
-
-      const kml = kmlDoc.end({ prettyPrint: true });
-
+      const kml = kmlDoc.end({prettyPrint: true});
       // Create a Blob with the KML data
       const blob = new Blob([kml], {
         type: "application/vnd.google-earth.kml+xml",
       });
       const url = URL.createObjectURL(blob);
-
       // Create a temporary link to trigger the download
       const a = document.createElement("a");
       a.href = url;
@@ -279,7 +296,6 @@ export default {
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-
       // Revoke the object URL
       URL.revokeObjectURL(url);
     },
@@ -290,8 +306,7 @@ export default {
         attribution:
           '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
       }).addTo(map);
-      L.control.scale({ imperial: false }).addTo(map);
-
+      L.control.scale({imperial: false}).addTo(map);
       this.areaSelect = L.areaSelect({
         width: 250,
         height: 210,
@@ -307,15 +322,47 @@ export default {
         vm.lon2 = bounds.getSouthWest().lng.toFixed(5);
       });
       this.areaSelect.addTo(map);
+      this.drawGrid();
     },
     jumpToCoordinate() {
       if (!this.mapCenter) {
         return;
       }
-      const coordinates = convert(this.mapCenter)
-      const [lat, lon] = [coordinates.decimalLatitude, coordinates.decimalLongitude];
+      const [lat, lon] = this.mapCenter.split(",").map(Number);
       this.$refs.map.leafletObject.setView([lat, lon], 11);
     },
-  },
+    drawGrid() {
+      const svgElement = this.$refs.svgOverlay;
+      const width = svgElement.clientWidth;
+      const height = svgElement.clientHeight;
+      const verticalLines = 7;
+      const horizontalLines = 15;
+      // Clear previous lines
+      svgElement.innerHTML = '';
+      for (let i = 1; i <= verticalLines; i++) {
+        let y = (height / (verticalLines + 1)) * i;
+        let newLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        newLine.setAttribute('x1', '0');
+        newLine.setAttribute('x2', width);
+        newLine.setAttribute('y1', y);
+        newLine.setAttribute('y2', y);
+        newLine.setAttribute('stroke', 'black');
+        newLine.setAttribute('stroke-width', '1');
+        svgElement.appendChild(newLine);
+      }
+      // Vertical lines
+      for (let j = 1; j <= horizontalLines; j++) {
+        let x = (width / (horizontalLines + 1)) * j;
+        let newLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        newLine.setAttribute('x1', x);
+        newLine.setAttribute('x2', x);
+        newLine.setAttribute('y1', '0');
+        newLine.setAttribute('y2', height);
+        newLine.setAttribute('stroke', 'black');
+        newLine.setAttribute('stroke-width', '1');
+        svgElement.appendChild(newLine);
+      }
+    },
+  }
 };
 </script>
